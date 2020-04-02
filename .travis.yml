@@ -13,8 +13,9 @@ after_success:
   - docker build -t bdexley5/multi-nginx ./nginx
   - docker build -t bdexley5/multi-server ./server
   - docker build -t bdexley5/multi-worker ./worker
-  # Take those images and push them to docker hub
+
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+  # Take those images and push them to docker hub
   - docker push bdexley5/multi-client
   - docker push bdexley5/multi-nginx
   - docker push bdexley5/multi-server
@@ -23,14 +24,13 @@ after_success:
 deploy:
   edge: true
   provider: elasticbeanstalk
-  region: "us-east-2"
-  app: "multi-docker"
-  env: "MultiDocker-env"
-  bucket_name: "elasticbeanstalk-us-east-2-309155248416"
-  bucket_path: "docker-multi"
+  region: us-east-2
+  app: multi-docker
+  env: MultiDocker-env
+  bucket_name: elasticbeanstalk-us-east-2-309155248416
+  bucket_path: docker-multi
   on:
     branch: master
   access_key_id: $AWS_ACCESS_KEY
   secret_access_key: $AWS_SECRET_KEY
-  
-  
+
